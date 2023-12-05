@@ -4,7 +4,7 @@
 This guide will cover how to get a pool canister for any token pair in ICPSwap.
 
 In this example we will use 
-**getPool** to get the pool information of the pair ICP/SNS1. The inputs are the token0, the token1 and the fee.
+**getPool** to get the pool information of the pair ICP - SNS1. The inputs are the *token0*, the *token1* and the *fee*.
 
 For this guide, the following canister ids are used:
 |Name|Principal|
@@ -24,7 +24,7 @@ dfx canister --network=ic call 4mmnk-kiaaa-aaaag-qbllq-cai getPool '(record {tok
 
 ## Detail
 
-### DID
+did
 ```
 type Token = record { address : text; standard : text };
 
@@ -56,8 +56,6 @@ service : SwapFactory
 ```
 
 In the input parameters:
-
-
 + *token0/token1* is the token information which in one of the pair in the SwapPool.
   + *address* is the canister principal id of particular token.
   + *standard* is the token standard text, it can only be DIP20, EXT, ICRC1, ICRC2, ICRC3 or ICP.
