@@ -1,3 +1,0 @@
-# Executing a Trade
-
-## Introduction
