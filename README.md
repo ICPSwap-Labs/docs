@@ -13,3 +13,4 @@ This document is intended for developers who want to understand and integrate wi
 + [Collecting Fees](./SwapPool/Liquidity/04.Collecting_Fees.md)
 + [Getting a Quote](./SwapPool/Swap/01.Getting_a_Quote.md)
 + [Executing a Trade](./SwapPool/Swap/02.Executing_a_Trade.md)
++ [Reclaim](./SwapPool/Token/01.Reclaim.md)
