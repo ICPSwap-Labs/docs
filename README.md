@@ -11,6 +11,7 @@ This document is intended for developers who want to understand and integrate wi
 + [Adding Liquidity](./02.SwapPool/Liquidity/02.Adding_Liquidity.md)
 + [Removing Liquidity](./02.SwapPool/Liquidity/03.Removing_Liquidity.md)
 + [Collecting Fees](./02.SwapPool/Liquidity/04.Collecting_Fees.md)
++ [Getting Amounts For Liquidity](./02.SwapPool/Liquidity/05.Getting_Amounts_For_Liquidity.md)
 + [Getting a Quote](./02.SwapPool/Swap/01.Getting_a_Quote.md)
 + [Executing a Trade](./02.SwapPool/Swap/02.Executing_a_Trade.md)
 + [Reclaim](./02.SwapPool/Token/01.Reclaim.md)
