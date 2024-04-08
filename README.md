@@ -20,3 +20,29 @@ This document is intended for developers who want to understand and integrate wi
 + [Reading Token Volume/Price Chart Data](./03.SwapInformation/03.Fetching_Token_Info.md)
 + [Reading TVL Statistics Data for Tokens/Pools](./03.SwapInformation/04.Fetching_TVL_Info.md)
 + [Fetching Transaction](./03.SwapInformation/05.Fetching_Transaction.md)
+
+# Testing Environment
+
+[ICPSwap-TESTING](https://ookii-jiaaa-aaaag-ak5wa-cai.icp0.io/swap)
+
+|Name|Principal|
+|:-|:-:|
+|SwapFactory|ososz-6iaaa-aaaag-ak5ua-cai|
+|PositionIndex|p7awx-raaaa-aaaag-ak5tq-cai|
+|SwapFeeReceiver|ovpun-tqaaa-aaaag-ak5uq-cai|
+|PasscodeManager|pybqd-4yaaa-aaaag-ak5ta-cai|
+|TrustedCanisterManager|o4m7r-fyaaa-aaaag-ak5va-cai|
+|base_index|pefks-lyaaa-aaaag-ak5ra-cai|
+|node_index|pwd5l-hiaaa-aaaag-ak5sa-cai|
+|global_index|pdemg-gaaaa-aaaag-ak5rq-cai|
+|price_index|prc37-kqaaa-aaaag-ak5sq-cai|
+
+	
+	
+	
+	
+
+	
+	
+	
+	
