@@ -32,6 +32,7 @@ This document is intended for developers who want to understand and integrate wi
 |SwapFeeReceiver|ovpun-tqaaa-aaaag-ak5uq-cai|
 |PasscodeManager|pybqd-4yaaa-aaaag-ak5ta-cai|
 |TrustedCanisterManager|o4m7r-fyaaa-aaaag-ak5va-cai|
+|SwapCalculator|phr2m-oyaaa-aaaag-qjuoq-cai|
 |base_index|pefks-lyaaa-aaaag-ak5ra-cai|
 |node_index|pwd5l-hiaaa-aaaag-ak5sa-cai|
 |global_index|pdemg-gaaaa-aaaag-ak5rq-cai|
