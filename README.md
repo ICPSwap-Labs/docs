@@ -7,6 +7,7 @@ This document is intended for developers who want to understand and integrate wi
 # Navigation
 
 + [Searching a Pool](./01.SwapFactory/01.Searching_a_Pool.md)
++ [Creating a Pool](./01.SwapFactory/02.Creating_a_Pool.md)
 + [Minting a Position](./02.SwapPool/Liquidity/01.Minting_a_Position.md)
 + [Adding Liquidity](./02.SwapPool/Liquidity/02.Adding_Liquidity.md)
 + [Removing Liquidity](./02.SwapPool/Liquidity/03.Removing_Liquidity.md)
