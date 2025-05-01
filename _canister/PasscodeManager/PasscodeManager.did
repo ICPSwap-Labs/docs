@@ -1,0 +1,75 @@
+type WithdrawArgs = 
+ record {
+   amount: nat;
+   fee: nat;
+ };
+type Result__1 = 
+ variant {
+   Err: text;
+   Ok: text;
+ };
+type Result_2 = 
+ variant {
+   err: Error;
+   ok: CycleInfo;
+ };
+type Result_1 = 
+ variant {
+   err: Error;
+   ok: text;
+ };
+type Result = 
+ variant {
+   err: Error;
+   ok: nat;
+ };
+type PasscodeManager = 
+ service {
+   balanceOf: (principal) -> (nat) query;
+   balances: () -> (vec record {
+                          principal;
+                          nat;
+                        }) query;
+   deposit: (DepositArgs) -> (Result);
+   depositFrom: (DepositArgs) -> (Result);
+   destoryPasscode: (principal, principal, nat) -> (Result_1);
+   getCycleInfo: () -> (Result_2);
+   getLogs: (opt nat) -> (vec LogEntry) query;
+   getVersion: () -> (text) query;
+   metadata: () ->
+    (record {
+       factoryCid: principal;
+       governanceCid: principal;
+       passcodePrice: nat;
+       tokenCid: principal;
+     }) query;
+   requestPasscode: (principal, principal, nat) -> (Result_1);
+   transfer: (principal, nat) -> (Result);
+   transferValidate: (principal, nat) -> (Result__1);
+   withdraw: (WithdrawArgs) -> (Result);
+ };
+type LogEntry = 
+ record {
+   amount: opt nat;
+   caller: principal;
+   message: text;
+   timestamp: int;
+ };
+type Error = 
+ variant {
+   CommonError;
+   InsufficientFunds;
+   InternalError: text;
+   UnsupportedToken: text;
+ };
+type DepositArgs = 
+ record {
+   amount: nat;
+   fee: nat;
+ };
+type CycleInfo = 
+ record {
+   available: nat;
+   balance: nat;
+ };
+service : (principal, nat, principal, principal) -> PasscodeManager

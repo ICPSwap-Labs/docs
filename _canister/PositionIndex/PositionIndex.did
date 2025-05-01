@@ -1,0 +1,39 @@
+type Result_2 = 
+ variant {
+   err: Error;
+   ok: CycleInfo;
+ };
+type Result_1 = 
+ variant {
+   err: Error;
+   ok: vec text;
+ };
+type Result = 
+ variant {
+   err: Error;
+   ok: bool;
+ };
+type PositionIndex = 
+ service {
+   addPoolId: (text) -> (Result);
+   getCycleInfo: () -> (Result_2);
+   getPools: () -> (Result_1) query;
+   getUserPools: (text) -> (Result_1) query;
+   getVersion: () -> (text) query;
+   removePoolId: (text) -> (Result);
+   removePoolIdWithoutCheck: (text) -> (Result);
+   updatePoolIds: () -> ();
+ };
+type Error = 
+ variant {
+   CommonError;
+   InsufficientFunds;
+   InternalError: text;
+   UnsupportedToken: text;
+ };
+type CycleInfo = 
+ record {
+   available: nat;
+   balance: nat;
+ };
+service : (principal) -> PositionIndex
