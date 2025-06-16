@@ -6,28 +6,34 @@ type Token =
  };
 type SwapFactory = 
  service {
+   activateWasm: () -> ();
    addPasscode: (principal, Passcode) -> (Result_1);
-   addPoolControllers: (principal, vec principal) -> ();
    addPoolInstallers: (vec PoolInstaller) -> ();
    addPoolInstallersValidate: (vec PoolInstaller) ->
     (variant {
        Err: text;
        Ok: text;
      });
+   batchAddInstallerControllers: (vec principal) -> ();
    batchAddPoolControllers: (vec principal, vec principal) -> ();
    batchClearRemovedPool: (vec principal) -> ();
    batchRemovePoolControllers: (vec principal, vec principal) -> ();
    batchRemovePools: (vec principal) -> (Result_1);
+   batchSetInstallerAdmins: (vec principal) -> ();
    batchSetPoolAdmins: (vec principal, vec principal) -> ();
    batchSetPoolAvailable: (vec principal, bool) -> ();
    batchSetPoolIcrc28TrustedOrigins: (vec principal, vec text) -> (Result_1);
    batchSetPoolLimitOrderAvailable: (vec principal, bool) -> ();
+   clearChunks: () -> ();
    clearPoolUpgradeTaskHis: () -> ();
-   clearRemovedPool: (principal) -> (text);
    clearUpgradeFailedPoolList: () -> ();
+   combineWasmChunks: () -> ();
    createPool: (CreatePoolArgs) -> (Result_8);
    deletePasscode: (principal, Passcode) -> (Result_1);
+   getActiveWasm: () -> (blob) query;
    getAdmins: () -> (vec principal) query;
+   getCreatePoolRecords: () -> (vec CreatePoolRecord) query;
+   getCreatePoolRecordsByCaller: (principal) -> (vec CreatePoolRecord) query;
    getCurrentUpgradeTask: () -> (Result_13) query;
    getCycleInfo: () -> (Result_12);
    getGovernanceCid: () -> (Result_11) query;
@@ -44,8 +50,10 @@ type SwapFactory =
    getPools: () -> (Result_4) query;
    getPrincipalPasscodes: () -> (Result_5) query;
    getRemovedPools: () -> (Result_4) query;
+   getStagingWasm: () -> (blob) query;
    getUpgradeFailedPoolList: () -> (Result_3) query;
    getVersion: () -> (text) query;
+   getWasmActiveStatus: () -> (bool) query;
    icrc10_supported_standards: () ->
     (vec record {
            name: text;
@@ -54,8 +62,6 @@ type SwapFactory =
    icrc21_canister_call_consent_message: (Icrc21ConsentMessageRequest) ->
     (Icrc21ConsentMessageResponse);
    icrc28_trusted_origins: () -> (Icrc28TrustedOriginsResponse);
-   removePool: (GetPoolArgs) -> (text);
-   removePoolControllers: (principal, vec principal) -> ();
    removePoolInstaller: (principal) -> ();
    removePoolInstallerValidate: (principal) ->
     (variant {
@@ -70,10 +76,11 @@ type SwapFactory =
                                                 Err: text;
                                                 Ok: text;
                                               });
-   setPoolAdmins: (principal, vec principal) -> ();
-   setPoolAvailable: (principal, bool) -> ();
+   setNextPoolVersion: (text) -> ();
    setUpgradePoolList: (UpgradePoolArgs) -> (Result_1);
+   setWasmActive: (bool) -> ();
    upgradePoolTokenStandard: (principal, principal) -> (Result);
+   uploadWasmChunk: (vec nat8) -> (nat);
  };
 type Result_9 = 
  variant {
@@ -146,6 +153,7 @@ type Result_10 =
       governanceCid: opt principal;
       infoCid: principal;
       passcodeManagerCid: principal;
+      positionIndexCid: principal;
       trustedCanisterManagerCid: principal;
     };
  };
@@ -279,6 +287,17 @@ type CycleInfo =
    available: nat;
    balance: nat;
  };
+type CreatePoolRecord = 
+ record {
+   caller: principal;
+   err: opt text;
+   fee: nat;
+   poolId: opt principal;
+   status: text;
+   timestamp: int;
+   token0: Token;
+   token1: Token;
+ };
 type CreatePoolArgs = 
  record {
    fee: nat;
@@ -288,4 +307,4 @@ type CreatePoolArgs =
    token1: Token;
  };
 service : (principal, principal, principal, principal, principal, opt
-                                                                   principal) -> SwapFactory
+                                                                   principal, principal) -> SwapFactory

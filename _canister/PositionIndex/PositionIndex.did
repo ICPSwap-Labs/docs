@@ -1,12 +1,17 @@
-type Result_2 = 
+type Result_3 = 
  variant {
    err: Error;
    ok: CycleInfo;
  };
-type Result_1 = 
+type Result_2 = 
  variant {
    err: Error;
    ok: vec text;
+ };
+type Result_1 = 
+ variant {
+   err;
+   ok: bool;
  };
 type Result = 
  variant {
@@ -16,13 +21,83 @@ type Result =
 type PositionIndex = 
  service {
    addPoolId: (text) -> (Result);
-   getCycleInfo: () -> (Result_2);
-   getPools: () -> (Result_1) query;
-   getUserPools: (text) -> (Result_1) query;
+   addPoolToUser: (principal) -> (Result);
+   getAdmins: () -> (vec principal) query;
+   getCycleInfo: () -> (Result_3);
+   getPools: () -> (Result_2) query;
+   getUserPools: (text) -> (Result_2) query;
    getVersion: () -> (text) query;
+   icrc10_supported_standards: () ->
+    (vec record {
+           name: text;
+           url: text;
+         }) query;
+   icrc21_canister_call_consent_message: (Icrc21ConsentMessageRequest) ->
+    (Icrc21ConsentMessageResponse);
+   icrc28_trusted_origins: () -> (Icrc28TrustedOriginsResponse);
+   removePoolFromUser: (principal) -> (Result);
    removePoolId: (text) -> (Result);
    removePoolIdWithoutCheck: (text) -> (Result);
+   setAdmins: (vec principal) -> ();
+   setAdminsValidate: (vec principal) -> (variant {
+                                            Err: text;
+                                            Ok: text;
+                                          });
+   setIcrc28TrustedOrigins: (vec text) -> (Result_1);
    updatePoolIds: () -> ();
+   updateUserPool: (principal, opt principal) -> (Result);
+ };
+type Icrc28TrustedOriginsResponse = record {trusted_origins: vec text;};
+type Icrc21ErrorInfo = record {description: text;};
+type Icrc21Error = 
+ variant {
+   ConsentMessageUnavailable: Icrc21ErrorInfo;
+   GenericError: record {
+                   description: text;
+                   error_code: nat;
+                 };
+   InsufficientPayment: Icrc21ErrorInfo;
+   UnsupportedCanisterCall: Icrc21ErrorInfo;
+ };
+type Icrc21ConsentMessageSpec = 
+ record {
+   device_spec:
+    opt
+     variant {
+       GenericDisplay;
+       LineDisplay:
+        record {
+          characters_per_line: nat16;
+          lines_per_page: nat16;
+        };
+     };
+   metadata: Icrc21ConsentMessageMetadata;
+ };
+type Icrc21ConsentMessageResponse = 
+ variant {
+   Err: Icrc21Error;
+   Ok: Icrc21ConsentInfo;
+ };
+type Icrc21ConsentMessageRequest = 
+ record {
+   arg: blob;
+   method: text;
+   user_preferences: Icrc21ConsentMessageSpec;
+ };
+type Icrc21ConsentMessageMetadata = 
+ record {
+   language: text;
+   utc_offset_minutes: opt int16;
+ };
+type Icrc21ConsentMessage = 
+ variant {
+   GenericDisplayMessage: text;
+   LineDisplayMessage: record {pages: vec record {lines: vec text;};};
+ };
+type Icrc21ConsentInfo = 
+ record {
+   consent_message: Icrc21ConsentMessage;
+   metadata: Icrc21ConsentMessageMetadata;
  };
 type Error = 
  variant {
