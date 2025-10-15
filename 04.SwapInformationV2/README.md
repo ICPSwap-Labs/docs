@@ -29,7 +29,7 @@ The ICPSwap Data APIs are organized into three main categories:
 ```
 icpswap-info-docs/
 ├── token/           # Token-related APIs
-├── pool/            # Pool-related APIs (Coming Soon)
+├── pool/            # Pool-related APIs
 ├── global/          # Global platform APIs (Coming Soon)
 └── README.md        # This documentation
 ```
@@ -51,7 +51,7 @@ All API endpoints are served from: `https://api.icpswap.com/info/`
   - TVL (Total Value Locked) data
   - Historical price ranges
 
-#### [Token Chart Data API](./token/ICPSWAP_TOKEN_DATA_API.md)
+#### [Token Chart Data API](./token/ICPSWAP_TOKEN_CHART_API.md)
 - **Endpoint**: `GET /token/{tokenLedgerId}/chart/{level}`
 - **Description**: Access historical price and trading data for specific tokens
 - **Features**:
@@ -60,11 +60,28 @@ All API endpoints are served from: `https://api.icpswap.com/info/`
   - OHLC (Open, High, Low, Close) data
   - Volume and liquidity metrics
 
-###  Pool APIs (Coming Soon)
-- Pool information and statistics
-- Liquidity data
-- Trading pair details
-- Pool performance metrics
+###  Pool APIs
+
+#### [Pool Information API](./pool/ICPSWAP_POOL_API.md)
+- **Endpoint**: `GET /pool/all`
+- **Description**: Retrieve comprehensive information about all liquidity pools on ICPSwap
+- **Features**: 
+  - Pool details and token information
+  - Real-time pricing data
+  - Trading volume statistics
+  - TVL (Total Value Locked) data
+  - Historical price ranges
+  - Pool performance metrics
+
+#### [Pool Chart Data API](./pool/ICPSWAP_POOL_CHART_API.md)
+- **Endpoint**: `GET /pool/{poolId}/chart/{level}`
+- **Description**: Access historical price and trading data for specific pools
+- **Features**:
+  - Configurable time intervals (daily, hourly, minute)
+  - Paginated results
+  - OHLC (Open, High, Low, Close) data
+  - Volume and liquidity metrics
+  - Pool-specific trading statistics
 
 ###  Global APIs (Coming Soon)
 - Platform-wide trading statistics
@@ -87,6 +104,12 @@ curl -X GET "https://api.icpswap.com/info/token/all"
 
 # Get historical data for a specific token
 curl -X GET "https://api.icpswap.com/info/token/ryjl3-tyaaa-aaaaa-aaaba-cai/chart/d1?page=1&limit=100"
+
+# Get all pool information
+curl -X GET "https://api.icpswap.com/info/pool/all"
+
+# Get historical data for a specific pool
+curl -X GET "https://api.icpswap.com/info/pool/p2gzi-iyaaa-aaaag-qneta-cai/chart/d1?page=1&limit=10"
 ```
 
 ### JavaScript Example
@@ -112,6 +135,29 @@ async function getTokenChartData(tokenLedgerId, level = 'd1', page = 1, limit = 
     console.log('Chart data:', data);
   } catch (error) {
     console.error('Error fetching chart data:', error);
+  }
+}
+
+// Fetch all pool data
+async function getAllPools() {
+  try {
+    const response = await fetch('https://api.icpswap.com/info/pool/all');
+    const data = await response.json();
+    console.log('Pool data:', data);
+  } catch (error) {
+    console.error('Error fetching pool data:', error);
+  }
+}
+
+// Fetch historical pool chart data
+async function getPoolChartData(poolId, level = 'd1', page = 1, limit = 10) {
+  try {
+    const url = `https://api.icpswap.com/info/pool/${poolId}/chart/${level}?page=${page}&limit=${limit}`;
+    const response = await fetch(url);
+    const data = await response.json();
+    console.log('Pool chart data:', data);
+  } catch (error) {
+    console.error('Error fetching pool chart data:', error);
   }
 }
 ```
